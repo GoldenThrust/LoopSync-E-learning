@@ -1,0 +1,28 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.71 22.47"
+    preserveAspectRatio="xMidYMax meet">
+    <defs>
+        <style>
+            .cls-1 {
+                fill: none;
+                stroke-width: 1.01px;
+            }
+
+            .cls-1,
+            .cls-2 {
+                stroke: #ffffff;
+                stroke-miterlimit: 10;
+            }
+
+            .cls-2 {
+                fill: #ffffff;
+                stroke-width: 0.35px;
+            }
+        </style>
+    </defs>
+    <path class="cls-1"
+        d="M292.66,308.1a7.37,7.37,0,1,0,8.53,6A7.37,7.37,0,0,0,292.66,308.1Zm5.82,10.36a5.64,5.64,0,0,1-1.8,1.67,5.78,5.78,0,0,1-1.8.65,5.5,5.5,0,1,1,3.6-2.32Z"
+        transform="translate(-286.06 -307.48)" />
+    <path class="cls-2"
+        d="M307.21,329.44h0a1.22,1.22,0,0,1-1.73-.05L298,321.52l-1.31-1.39a5.64,5.64,0,0,0,1.8-1.67l1.31,1.37,7.47,7.87A1.22,1.22,0,0,1,307.21,329.44Z"
+        transform="translate(-286.06 -307.48)" />
+</svg>

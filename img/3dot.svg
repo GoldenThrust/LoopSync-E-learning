@@ -1,0 +1,16 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23.34 17.2"
+    preserveAspectRatio="xMidYMax meet">
+    <defs>
+        <style>
+            .cls-1 {
+                fill: none;
+                stroke: #ffffff;
+                stroke-miterlimit: 10;
+                stroke-width: 2.94px;
+            }
+        </style>
+    </defs>
+    <line class="cls-1" x1="0.01" y1="1.56" x2="23.33" y2="1.47" />
+    <line class="cls-1" x1="0.01" y1="8.64" x2="23.33" y2="8.55" />
+    <line class="cls-1" x1="0.01" y1="15.72" x2="23.33" y2="15.63" />
+</svg>
