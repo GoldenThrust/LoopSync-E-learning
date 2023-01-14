@@ -13,6 +13,9 @@
 </head>
 <body>
     <?php require('header.php'); ?>
+    <main>
+        <div>Hello</div>
+    </main>
     <?php require('footer.php');?>
 <!-- Send mail to me and the person that insert data -->
 <!-- create a search suggestion -->

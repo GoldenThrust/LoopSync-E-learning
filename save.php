@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <?php require('meta.php') ?>
-    <title>Document</title>
-    <meta name="title" content="Document">
-    <meta name="title" content="Document">
-    <meta itemprop="title" content="Document">
-    <meta property="og:title" content="">
-    <meta property="og:url" content="">
-    <meta itemprop="url" content="">
-    <meta name="twitter:domain" content="">
-    <meta name="twitter:url" content="">
-    <meta name="twitter:title" content="">
+    <title>LoopSync</title>
+    <meta itemprop="title" class="title">
+    <meta property="og:title" class="title">
+    <meta property="og:url" content="<?php print($currentUrl); ?>">
+    <meta itemprop="url" content="<?php print($currentUrl);?>">
+    <meta name="twitter:domain" content="<?php print($_SERVER['SERVER_NAME']); ?>">
+    <meta name="twitter:url" content="<?php print($currentUrl); ?>">
+    <meta name="twitter:title" class="title">
 </head>
-
 <body>
-
+    <?php require('header.php'); ?>
+    <main>
+        
+    </main>
+    <?php require('footer.php');?>
+<!-- Send mail to me and the person that insert data -->
+<!-- create a search suggestion -->
 </body>
-
 </html>
-
 
 
 

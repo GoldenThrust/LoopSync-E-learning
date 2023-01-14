@@ -40,4 +40,4 @@
       </span>
   </div>
 </footer>
-<script src="js/main.js" defer></script>
+<script src="js/main.js"></script>

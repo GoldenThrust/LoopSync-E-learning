@@ -21,8 +21,8 @@
 <meta name="twitter:description" content="LoopSync is an online learning and teaching marketplace. Anyone can take an online class, watch video lessons, create projects, and even teach a class themselves.">
 <meta itemprop="description" content="LoopSync is an online learning and teaching marketplace. Anyone can take an online class, watch video lessons, create projects, and even teach a class themselves.">
 <meta name="twitter:site" content="@LoopSync">
+<link rel="stylesheet" href="css/slofh.css">
 <link rel="stylesheet" href="css/style.css">
-<meta name="theme-color" content="#872e4e" media="(prefers-color-scheme: dark)">
 
 <?php $protocol = strpos(strtolower($_SERVER['SERVER_PROTOCOL']),'https') === FALSE ? 'http' : 'https';
 $host     = $_SERVER['HTTP_HOST'];
