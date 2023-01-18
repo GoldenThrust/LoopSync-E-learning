@@ -1,10 +1,3 @@
-<?php
-require('db_config.php');
-if(isset($_SESSION['email'])){
-    $session = $_SESSION['email'];
-    $data = $database->read('users', "email = " . "'$session'");
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,5 +21,3 @@ if(isset($_SESSION['email'])){
 <!-- create a search suggestion -->
 </body>
 </html>
-
-
