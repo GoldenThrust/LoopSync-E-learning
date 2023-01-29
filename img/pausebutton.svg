@@ -1,0 +1,7 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 123">
+    <g>
+        <rect width="4" height="15" x='68' y='52' fill="grey" />
+        <rect width="4" height="15" x='78' y='52' fill="grey" />
+        <circle cx="75" cy="60" r="20" fill="none" stroke="grey" stroke-width="3"/>
+    </g>
+</svg>

@@ -16,20 +16,18 @@ theme.addEventListener("mousemove", function () {
   themecss.right = "0";
 });
 let themesrc = theme.querySelector("img");
-var watchtheme = '1';
 theme.addEventListener("click", () => {
   if (localStorage.getItem("theme") === "dark") {
     themesrc.setAttribute("src", "./img/sun.svg");
     localStorage.setItem("theme", "light");
-    watchtheme = 1;
   } else {
     localStorage.setItem("theme", "dark");
     themesrc.setAttribute("src", "./img/moon.svg");
-    watchtheme = 0;
   }
 })
 setInterval(()=> {
 if (localStorage.getItem("theme") === "dark") {
+   //light mode
   themesrc.setAttribute("src", "./img/sun.svg");
   themecss.backgroundColor = "azure";
   themecss.boxShadow = "none";
@@ -39,11 +37,17 @@ if (localStorage.getItem("theme") === "dark") {
   rootstyle.setProperty("--search", "#1d67f0");
   rootstyle.setProperty("--bg", "#3cc5ff");
   rootstyle.setProperty("--color", "#ddffff");
+  rootstyle.setProperty("--introcard", "white");
+  rootstyle.setProperty("--error", "transparent");
+  rootstyle.setProperty("--eshadow", "grey");
   // rootstyle.setProperty('--txtcolor', 'red');
+  rootstyle.setProperty("--price", "red");
   rootstyle.setProperty("--inputbg", "aliceblue");
   rootstyle.setProperty("--green", "none");
   rootstyle.setProperty("--inputsub", "#3cc5ff");
+  rootstyle.setProperty("--maincolor", "#515151");
   rootstyle.setProperty("--inputtext", "white");
+  rootstyle.setProperty("--banner", "grayscale(0)");
   rootstyle.setProperty("--drop", "#4545cd");
   for (let i = 0; i < form.length; i++) {
     form[i].style.backgroundColor = "transparent";
@@ -57,19 +61,26 @@ if (localStorage.getItem("theme") === "dark") {
     forminput[i].style.backgroundColor = "transparent";
   }
 } else {
+   // dark mode
   themesrc.setAttribute("src", "./img/moon.svg");
   themecss.backgroundColor = "springgreen";
   themecss.boxShadow = "0 0 10px #00ff7f";
   rootstyle.setProperty("--htmlbg", "#06181f");
   rootstyle.setProperty("--anchor", "#00ff7f");
   rootstyle.setProperty("--psearch", " #3d7566");
-  rootstyle.setProperty("--search", " #azhure");
+  rootstyle.setProperty("--maincolor", "azure");
+  rootstyle.setProperty("--search", " azure");
   rootstyle.setProperty("--bg", "#0a111f");
   rootstyle.setProperty("--color", "#00ff7f");
+  rootstyle.setProperty("--error", "black");
+  rootstyle.setProperty("--eshadow", "green");
   // rootstyle.setProperty('--txtcolor', 'red');
   rootstyle.setProperty("--inputbg", "#1f4a3d");
+  rootstyle.setProperty("--price", "aliceblue");
   rootstyle.setProperty("--green", "green");
+  rootstyle.setProperty("--introcard", "darkslategrey");
   rootstyle.setProperty("--inputsub", "#208d6b");
+  rootstyle.setProperty("--banner", "grayscale(100)");
   rootstyle.setProperty("--inputtext", "black");
   rootstyle.setProperty("--drop", "#14282c");
   for (let i = 0; i < form.length; i++) {

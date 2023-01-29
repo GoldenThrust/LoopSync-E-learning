@@ -1,0 +1,374 @@
+:root {
+  --maincolor: azure;
+  --banner: grayscale(0);
+  --introcard: darkslategrey;
+  --price: red;
+}
+header * {
+  z-index: 100;
+}
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: auto;
+  width: 80%;
+}
+.instruct {
+  line-height: 50px;
+}
+.instruct div {
+  display: flex;
+  padding: 40px;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+  box-shadow: 1px 0px 3px grey;
+  font-size: large;
+  margin: 50px;
+}
+.instruct div button {
+  margin: 10px;
+  width: 250px;
+  height: 40px;
+  background-color: #187979;
+  border: 0;
+  font-size: 17px;
+  color: aliceblue;
+  box-shadow: 1px 0px 3px grey;
+  font-weight: bold;
+  cursor: pointer;
+}
+.instruct div img {
+  height: 300px;
+  width: 300px;
+}
+.instruct span {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+.instruct span h2 {
+  margin: 10px 0 40px;
+}
+img {
+  width: 100%;
+  z-index: -1;
+}
+.createcourse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+@media only screen and (max-width: 980px) {
+  .instruct div {
+    flex-direction: column;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .instruct div img {
+    width: 200px;
+    height: 200px;
+  }
+  .instruct div button {
+    width: 120px;
+    height: 40px;
+  }
+}
+
+main .project {
+  display: grid;
+  grid-template-columns: 22.5% 22.5% 22.5% 22.5%;
+  gap: 50px 3.33%;
+  /* column-gap: ; */
+  color: #515151;
+  color: var(--maincolor);
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+@media only screen and (max-width: 830px) {
+  main {
+    width: 90%;
+  }
+}
+@media only screen and (max-width: 600px) {
+  main .project {
+    grid-template-columns: 31% 31% 31%;
+    gap: 50px 3.5%;
+  }
+}
+@media only screen and (max-width: 450px) {
+  main .project {
+    grid-template-columns: 47% 47%;
+    gap: 50px 5.5%;
+  }
+  @media only screen and (max-width: 414px) {
+    main .project {
+      grid-template-columns: auto;
+    }
+  }
+}
+
+/* main .project img{ 
+    width: 100%;
+} */
+
+/* main project details conponent */
+/* product-details start here */
+.link {
+  box-shadow: 0 0 4px grey;
+}
+.coursename {
+  font-weight: bolder;
+  font-size: 16px;
+  margin: 10px 0;
+}
+.name {
+  margin: 0 0 10px 0;
+  font-size: 13px;
+}
+img[alt="banner"] {
+  filter: var(--banner);
+}
+main.detailpage {
+  display: grid;
+  grid-template-columns: 30% 60%;
+  gap: 10%;
+  color: var(--maincolor);
+  align-items: flex-start;
+}
+.introcard {
+  position: sticky;
+  top: 0;
+  width: 400px;
+  box-shadow: 2px 2px solid white;
+  background-color: var(--introcard);
+  position: sticky;
+  top: 0;
+  left: 0;
+  border-radius: 30px 30px 20px 20px;
+  color: black;
+  box-shadow: 2px 2px 10px black;
+}
+.introcard video {
+  width: 100%;
+  border-radius: 20px 20px 0 0;
+}
+#pp {
+  position: absolute;
+  top: 0;
+  transform: translateY(-10%);
+  visibility: hidden;
+  transition: all 1s ease-in-out;
+  width: 100%;
+  opacity: 0;
+}
+video:hover ~ #pp {
+  visibility: visible;
+}
+#pp:hover {
+  visibility: visible;
+  opacity: 1;
+}
+#pp img {
+  filter: drop-shadow(0 0 2px black);
+}
+/*TODO: use javascript for pp width to match video height */
+.prodname {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px auto;
+  width: 80%;
+}
+.prodname span:first-child {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: 25px;
+  font-weight: bolder;
+}
+.prodname span:last-child {
+  display: flex;
+  align-items: center;
+  background-color: pink;
+  border-radius: 20%;
+  color: aliceblue;
+}
+.introcard div:nth-child(4) {
+  color: var(--price);
+  margin: 20px;
+  font-weight: bolder;
+  font-size: 170%;
+  text-shadow: 0 0 3px black;
+}
+.introcard a {
+  color: #000;
+}
+.introcard div:nth-child(5) {
+  width: 30%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 4px groove burlywood;
+  margin: 0 0 0 5%;
+  box-shadow: 2px 2px 10px black;
+  transition: all 1s ease-in-out;
+  font-size: 18px;
+  font-weight: bold;
+  border-image-slice: 1;
+  border-image: linear-gradient(0deg, red, blue);
+  animation: bgrotate 1s ease-in-out infinite;
+  background-color: white;
+}
+#buynow{
+  display: none;
+  justify-content: center;
+  align-items: center;
+  border: 4px groove burlywood;
+  box-shadow: 0px -5px 10px black;
+  transition: all 1s ease-in-out;
+  font-size: 18px;
+  font-weight: bold;
+  border-image-slice: 1;
+  border-image: linear-gradient(0deg, red, blue);
+  animation: bgrotate 1s ease-in-out infinite;
+  background-color: white;
+  color: black;
+  height: 50px;
+
+}
+.buy{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+@keyframes bgrotate {
+  0% {
+    border-image: linear-gradient(0deg, red, blue);
+    border-image-slice: 1;
+  }
+  50% {
+    border-image: linear-gradient(180deg, red, blue);
+    border-image-slice: 1;
+  }
+  100% {
+    border-image: linear-gradient(360deg, red, blue);
+    border-image-slice: 1;
+  }
+}
+.introcard div:nth-child(5):hover {
+  width: 90%;
+  animation-play-state: paused;
+}
+.introcard div:nth-child(6) {
+  margin: 20px auto;
+  width: 95%;
+  font-size: 17px;
+  font-weight: bold;
+}
+.introcard ul {
+  /* list-style: georgian; */
+  margin-left: 50px;
+}
+.introcard ul li {
+  list-style: disc;
+}
+li {
+  border: none;
+  outline: none;
+}
+.introcard div:nth-child(8) {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  margin: 10px auto;
+  width: 80%;
+}
+
+.introcard div:nth-child(8) span {
+  text-decoration: underline;
+}
+.introcard div:nth-child(9) {
+  margin: 5px auto 10px;
+  width: 80%;
+  font-size: 17px;
+  font-weight: bold;
+}
+.details {
+  border: 10px solid Black;
+  box-shadow: 3px 2px 10px black;
+}
+.detailtitle {
+  background-color: black;
+  padding: 20px 10px;
+}
+.detailtitle div {
+  font-size: 19px;
+  color: grey;
+}
+.details h1 {
+  color: white;
+  font-size: 50px;
+}
+.details .requirement {
+  padding: 20px 10px;
+  font-size: large;
+  line-height: 50px;
+  background-color: var(--htmlbg);
+}
+.details .requirement div:first-child {
+  font-size: xx-large;
+  border-bottom: 10px double white;
+  display: inline;
+  margin-left: 10px;
+}
+.details .requirement div:last-child {
+  border: 5px solid black;
+  margin: 10px 1%;
+  padding: 20px;
+  box-shadow: 0 0 5px black;
+}
+.other{
+  display: flex;
+  flex-direction: row;
+}
+.other div{
+  width: 100%;
+}
+.other div img{
+  box-shadow: 0 0 5px black;
+  height: 150px;
+}
+@media only screen and (max-width: 1280px) {
+main.detailpage {
+  grid-template-columns: 40% 50%;
+  width: 90%;
+}
+.introcard{
+  width: 100%;
+}
+}
+
+@media only screen and (max-width: 986px) {
+  main.detailpage {
+    gap: 5%;
+    position: relative;
+    top: 0;
+  }
+}
+@media only screen and (max-width: 800px) {
+  main.detailpage {
+    grid-template-columns: 100%;
+    margin: 5px auto 250px;
+    gap: 50px;
+  }
+  .details{
+    margin-top: 0;
+  }
+  .introcard, .detailpage div:nth-child(2){
+    position: relative;
+    top: 0;
+    width: 100%;
+  }
+}

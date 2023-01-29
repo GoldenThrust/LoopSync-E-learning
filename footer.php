@@ -92,7 +92,7 @@
   <div class="logo">
     <span><a href="index.php"> LoopSync </a></span>
     <span>
-      &copy; <?php echo date('Y');?> LoopSync
+      &copy; <?php echo date('Y'); ?> LoopSync
     </span>
   </div>
 </footer>
@@ -101,23 +101,26 @@
 <?php
 // session_start();
 if (isset($_SESSION['email'])) {
-  ?> <script>
-    for (let i = 0; i < note.length; i++) {
-      note[i].style.display = 'flex';
-    }
-    for (let i = 0; i < d.length; i++) {
-      d[i].style.display = 'none';
-    }
-  </script> <?php
-}
-else{
-  ?> <script>
-for (let i = 0; i < note.length; i++) {
-      note[i].style.display = 'none';
-    }
-    for (let i = 0; i < d.length; i++) {
-      d[i].style.display = 'flex';
+?> <script>
+    if (note !== undefined) {
+      for (let i = 0; i < note.length; i++) {
+        note[i].style.display = 'flex';
+      }
+      for (let i = 0; i < d.length; i++) {
+        d[i].style.display = 'none';
+      }
     }
   </script> <?php
-}
-?>
+          } else {
+            ?> <script>
+    if (note !== undefined) {
+      for (let i = 0; i < note.length; i++) {
+        note[i].style.display = 'none';
+      }
+      for (let i = 0; i < d.length; i++) {
+        d[i].style.display = 'flex';
+      }
+    }
+  </script> <?php
+          }
+            ?>

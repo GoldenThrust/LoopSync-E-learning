@@ -1,5 +1,8 @@
 <?php
 require('db_config.php');
+if(!isset($_SERVER['HTTP_REFERER'])){
+    header("location: index.php");
+}
 if (isset($_POST['email']) && isset($_POST['password'])) {
     $em = $database->sec($_POST['email']);
     $pw = $database->sec($_POST['password']);
@@ -17,21 +20,12 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <?php require('meta.php') ?>
-    <title>LoopSync</title>
-    <meta itemprop="title" class="title">
-    <meta property="og:title" class="title">
-    <meta property="og:url" content="<?php print($currentUrl); ?>">
-    <meta itemprop="url" content="<?php print($currentUrl); ?>">
-    <meta name="twitter:domain" content="<?php print($_SERVER['SERVER_NAME']); ?>">
-    <meta name="twitter:url" content="<?php print($currentUrl); ?>">
-    <meta name="twitter:title" class="title">
-</head>
+<?php require('meta.php') ?>
 
 <body>
+    <?php require('header.php'); ?>
+
     <main>
-        <?php require('header.php'); ?>
         <div class="log">
             <div>
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
@@ -56,14 +50,17 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
             <div style="margin-bottom: 20px;">
                 Don't have an account? <a href="Signup.php">Sign Up</a>
             </div>
-            <div style="color: red;"> <?php if (isset($_REQUEST['error']))
-                                            echo $_REQUEST['error']; ?></div>
         </div>
+        <?php
+            if (isset($_REQUEST['error'])) {
+                echo ' <div style=" animation-play-state: running;" id="error">' . $_REQUEST['error'] .
+                    '</div>';
+            }
+            ?>
     </main>
     <?php require('footer.php'); ?>
     <!-- Send mail to me and the person that insert data -->
     <!-- create a search suggestion -->
-    <div id="error"></div>
 </body>
 
 </html>

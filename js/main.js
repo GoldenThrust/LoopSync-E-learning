@@ -1,13 +1,3 @@
-"use strict";
-// head title
-let title = document.getElementsByClassName("title");
-for (let tit of title) {
-  tit.setAttribute(
-    "content",
-    document.getElementsByTagName("title")[0].innerText //i create new attribute content and add page title as it value
-  );
-}
-//head title end here
 // dropdown button
 const dropdown = document.querySelector(".dropdown");
 const cancel = document.querySelector(".cancel");
@@ -17,7 +7,7 @@ const searchcon = document.querySelector(".search-container");
 const cancelt = document.querySelector(".cancelt");
 var error = document.getElementById("error"); //getting the form error message node
 function clickdisplay(classblock, classnone, classobject) {
-  // i create a function that make an element display page content by click
+  //function that make an element display page content by click
   classblock.addEventListener("click", function () {
     classobject.style.display = "block";
   });
@@ -60,7 +50,7 @@ function formmove(formlabel, forminput, screenvar) {
       if (forminput[i].value === "") {
         formlabel[i].style.color = "#1f112c";
         formlabel[i].style.top = "38px";
-        screenvar.addEventListener("change", function () {
+        screenvar.addEventListener("resize", function () {
           formlabel[i].style.top = "30px";
         });
         if (screenvar.matches) {
@@ -74,5 +64,6 @@ function formmove(formlabel, forminput, screenvar) {
 }
 formmove(formlabel, forminput, screenvar); //form function triger
 // form javascript end here
-const d = document.getElementsByClassName('d'); //login and signin button node
-const note = document.getElementsByClassName('note'); //add to cart and other node
+
+const d = document.getElementsByClassName("d"); //login and signin button node
+const note = document.getElementsByClassName("note"); //add to cart and other node

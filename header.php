@@ -29,9 +29,9 @@ if (isset($_POST['logout'])) {
           <li><a href="">Video & Animation</a></li>
         </ul>
       </nav>
-      <div class="hidd"><a href="">Instructor</a></div>
+      <div class="hidd"><a href="instructor.php">Instructor</a></div>
       <div class="form">
-        <form action="" method="post">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
           <input type="hidden" name="src" value="ks" />
           <input type="text" name="q" placeholder="Search for anything" autocomplete="off" id="q" />
           <button disabled tabindex="-1">
