@@ -1,40 +1,12 @@
-<!DOCTYPE html>
-<html lang='en-US'>
+<?php
+require_once("db_config.php");
+$email = $_GET['prodemail'];
+$name = $_GET['prodname'];
+$session = $_SESSION['email'];
+if ($database->delete('cart', 'ProductEmail =' . "'$name'" . ' AND ProductName = ' . "'$email'" . ' AND AddBy = ' . "'$session'" . '')) {
+    echo "What do you think";
+}
+echo $text;
+?>
 
-<head>
-    <title>LoopSync</title>
-    <style>
-        table {
-            border: solid;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            border-spacing: 10px;
-            font-size: 19px;
-        }
-
-        tr {
-            text-align: center;
-            width: 100%;
-        }
-
-        td {
-            width: 100%;
-            text-align: center;
-        }
-    </style>
-</head>
-
-<boddy>
-    <?php
-    require('db_config.php');
-    $course = $database->read('courses');
-
-    $rand = [];
-    print_r($rand)
-        ?>
-</boddy>
-
-</html>
+$database->delete('cart', 'ProductEmail ="' . $email . '" AND ProductName = "' . $name . '" AND AddBy = "' . $session . '"');

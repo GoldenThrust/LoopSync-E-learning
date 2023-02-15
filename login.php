@@ -1,19 +1,24 @@
 <?php
 require('db_config.php');
-if(!isset($_SERVER['HTTP_REFERER'])){
+if (!isset($_SERVER['HTTP_REFERER'])) {
     header("location: index.php");
 }
 if (isset($_POST['email']) && isset($_POST['password'])) {
     $em = $database->sec($_POST['email']);
     $pw = $database->sec($_POST['password']);
-    $sql = "SELECT * FROM users WHERE email='$em' and password='$pw';";
-    $result = $database->conn->query($sql);
-    if ($result->num_rows > 0) {
+    $var = "SELECT * FROM users WHERE email='$em'";
+    $vares = $database->conn->query($var);
+    if ($vares->num_rows > 0) {
+    $verify = password_verify($pw,  $vares->fetch_assoc()['Password']);
+    if ($verify) {
         //create a session
         $_SESSION['email'] = $em;
         header("location: index.php");
     } else {
         header("location: login.php?error=Please check your password and email or <a href='signup.php'>Sign Up</a>");
+    }
+    } else {
+        header("location: login.php?error=Please check your email or <a href='signup.php'>Sign Up</a>");
     }
 }
 ?>
@@ -52,11 +57,11 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
             </div>
         </div>
         <?php
-            if (isset($_REQUEST['error'])) {
-                echo ' <div style=" animation-play-state: running;" id="error">' . $_REQUEST['error'] .
-                    '</div>';
-            }
-            ?>
+        if (isset($_REQUEST['error'])) {
+            echo ' <div style=" animation-play-state: running;" id="error">' . $_REQUEST['error'] .
+                '</div>';
+        }
+        ?>
     </main>
     <?php require('footer.php'); ?>
     <!-- Send mail to me and the person that insert data -->

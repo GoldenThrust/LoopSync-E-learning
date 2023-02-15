@@ -102,7 +102,7 @@ if (isset($_POST['fullname']) && isset($_POST['email']) && isset($_POST['passwor
                     $_SESSION['fn'] = $fn;
                     $_SESSION['e'] = $em;
                     $_SESSION['pw'] = $pw;
-                    header("location: otp.php");
+                    header("location: otp.php?". $_SESSION['otp']);
                 } else {
                     header("location: signup.php?error=Email not Verify");
                 }
@@ -117,7 +117,8 @@ if (isset($_POST['fullname']) && isset($_POST['email']) && isset($_POST['passwor
     }
 }
 ?>
-<!-- TODO- check words -->
+<!-- TODO- check words and delete all record if user doesn't exist in database -->
+
 
 <!DOCTYPE html>
 <html lang="en">

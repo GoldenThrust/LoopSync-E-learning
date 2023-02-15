@@ -23,7 +23,7 @@ class database
     $data = $this->conn->real_escape_string($data);
     return $data;
   }
-  public function create($table, $data)
+  public function create($table, $data) // function to inset into database table
   {
     $columns = implode(', ', array_keys($data));
     $placeholders = implode(", ", array_fill(0, count($data), '?'));
@@ -34,7 +34,8 @@ class database
     $stmt->execute();
     return $this->conn->insert_id;
   }
-  public function read($table, $condition = '')
+
+  public function read($table, $condition = '') // function to select from table.
   {
     if ($condition !== '') {
       $cond = ' WHERE ' . $condition;
@@ -43,9 +44,9 @@ class database
     };
     $sql = "SELECT * FROM $table" . $cond;
     $result = $this->conn->query($sql);
-    return $result->fetch_all(MYSQLI_ASSOC);
+    return $result->fetch_all(MYSQLI_ASSOC); // the data selected will be return by the function. You can use the function as the array of data returned.
   }
-  public function update($table, $data, $condition)
+  public function update($table, $data, $condition) // function to update the database table
   {
     $set = '';
     $values = array();
@@ -59,11 +60,12 @@ class database
     $stmt->bind_param(str_repeat("s", count($values)), ...$values);
     $stmt->execute();
   }
-  public function delete($table, $condition)
+  public function delete($table, $condition) // function to delete from database
   {
     $sql = "DELETE FROM $table WHERE $condition";
     $stmt = $this->conn->prepare($sql);
     $stmt->execute();
+    return 1;
   }
   public function __destruct()
   {

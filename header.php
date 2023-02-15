@@ -53,17 +53,19 @@ if (isset($_POST['logout'])) {
       <div class="d border"><a href="login.php">Login</a></div>
       <div class="d border"><a href="signup.php">SignUp</a></div>
       <div class="note"><a href=""><img src="img/wishlist.svg" alt="wishlist"></a></div>
-      <div class="note"><a href=""><img src="img/cart.svg" alt="cart"></a></div>
+      <div class="note" id="cart"><img src="img/cart.svg" alt="cart"></div>
       <div class="note notify"><img src="img/notification.svg" alt="notification"></div>
       <span class="notification">
         <div><span>Notification</span>
           <hr><span>You have a message</span>
         </div> <span class="nothidden"></span>
       </span>
-      <div class="note"><a href="" class="profile"> <?php
-                                                    echo $data[0]['Fullname'][0];
+      <div class="note"><span class="profile">
+          <?php
+          echo $data[0]['Fullname'][0];
 
-                                                    ?></a>
+          ?>
+        </span>
         <span class="prodrop">
           <a href="">Profile</a>
           <form action="<?php htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="post">
@@ -108,7 +110,7 @@ if (isset($_POST['logout'])) {
               <span style="transform: translate(-8px, 10px); font-size:larger;font-weight: bolder;">
                 <?php
                 echo $data[0]['Fullname']
-                ?>
+                  ?>
               </span>
             </div>
           </li>
@@ -128,13 +130,15 @@ if (isset($_POST['logout'])) {
           <li><a href="">About Us</a></li>
           <li><a href="">Contact Us</a></li>
           <li><a href="">Blog</a></li>
+          <li>
+            <hr>
+            <span class="note">
+              <form action="<?php htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="post">
+                <button type="submit" name="logout">Log out</button>
+              </form>
+            </span>
+          </li>
         </ul>
-        <hr>
-        <span class="note">
-          <form action="<?php htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="post">
-            <button type="submit" name="logout">Log out</button>
-          </form>
-        </span>
       </nav>
       <div class="search-container">
         <div class="cover"></div>

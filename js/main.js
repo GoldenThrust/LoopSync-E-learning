@@ -28,6 +28,7 @@ document.onreadystatechange = function () {
     document.querySelector("#load").style.display = "none";
     document.querySelector("body").style.visibility = "visible";
   }
+  //TODO:when instructor or buy take us back to login page. when login go back to the original page
 };
 // loader javascript end here
 // form javascript
@@ -67,3 +68,13 @@ formmove(formlabel, forminput, screenvar); //form function triger
 
 const d = document.getElementsByClassName("d"); //login and signin button node
 const note = document.getElementsByClassName("note"); //add to cart and other node
+
+const cartdisplay = document.getElementById('cartdisplay');
+const cartnote = document.getElementById('cart');
+cartnote.addEventListener("click", () => {
+  cartdisplay.style.display = "grid";
+})
+cartdisplay.addEventListener("dblclick",()=>{
+  cartdisplay.style.display = "none";
+})
+cartnote.style.cursor = "pointer";

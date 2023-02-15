@@ -31,7 +31,7 @@ if (localStorage.getItem("theme") === "dark") {
   themesrc.setAttribute("src", "./img/sun.svg");
   themecss.backgroundColor = "azure";
   themecss.boxShadow = "none";
-  rootstyle.setProperty("--htmlbg", "azhure");
+  rootstyle.setProperty("--htmlbg", "aliceblue");
   rootstyle.setProperty("--anchor", "#1d67f0");
   rootstyle.setProperty("--psearch", "#3cc5ff");
   rootstyle.setProperty("--search", "#1d67f0");
@@ -96,3 +96,5 @@ if (localStorage.getItem("theme") === "dark") {
   }
 }
 }, 10);
+
+

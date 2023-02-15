@@ -4,7 +4,18 @@ unset($_SESSION['otp']);
 unset($_SESSION['fn']);
 unset($_SESSION['e']);
 unset($_SESSION['pw']);
-$data = $database->read('courses', 'AuthorEmail ="' . $_SESSION['authemail'] . '" AND Name = "' . $_SESSION['productname'] . '"');
+if (isset($_SESSION['email'])) {
+    $session = $_SESSION['email'];
+    $data = $database->read('users', "email = " . "'$session'");
+    if (!isset($data[0])) {
+        session_unset();
+        session_destroy();
+        header(
+            "location: index.php"
+        );
+    }
+}
+$specourse = $database->read('courses', 'AuthorEmail ="' . $_SESSION['authemail'] . '" AND Name = "' . $_SESSION['productname'] . '"');
 $user = $database->read('users', "Email ='" . $_SESSION['authemail'] . "'");
 $course = $database->read('courses');
 
@@ -50,16 +61,16 @@ for ($i = 0; $i < 3; $i++) {
     <?php require('header.php'); ?>
     <main class="detailpage">
         <div class="introcard">
-            <video src="<?php echo $data[0]['Trailer'] ?>" id="trailer"></video>
+            <video src="<?php echo $specourse[0]['Trailer'] ?>" id="trailer"></video>
             <div id="pp"><img src="img/playbutton.svg" alt=""></div>
             <div class="prodname"><span>
                     <?php echo $user[0]['Fullname'] ?>
                 </span> <span>New</span></div>
             <div>
                 &#8358;
-                <?php echo $data[0]['Price'] ?>
+                <?php echo $specourse[0]['Price'] ?>
             </div>
-            <div><a href="">Buy Now</a></div>
+            <div><a href="create/payment.php" class="buynow">Buy Now</a></div>
             <div>This course includes</div>
             <ul>
                 <li>7.5 hours on-demand video</li>
@@ -80,22 +91,22 @@ for ($i = 0; $i < 3; $i++) {
                 <div>
                     <div class="detailtitle">
                         <h1>
-                            <?php echo $data[0]['Name'] ?>
+                            <?php echo $specourse[0]['Name'] ?>
                         </h1>
                         <div>
-                            <?php echo $data[0]['SubDescription'] ?>
+                            <?php echo $specourse[0]['SubDescription'] ?>
                         </div>
                     </div>
                     <div class="requirement">
                         <div>Requirements</div>
                         <div>
-                            <?php echo str_replace('\r\n', "<br/>", $data[0]['Requirement']) ?>
+                            <?php echo str_replace('\r\n', "<br/>", $specourse[0]['Requirement']) ?>
                         </div>
                     </div>
                     <div class="requirement">
                         <div>Description </div>
                         <div>
-                            <?php echo str_replace('\r\n', "<br/>", $data[0]['Description']) ?>
+                            <?php echo str_replace('\r\n', "<br/>", $specourse[0]['Description']) ?>
                         </div>
                     </div>
                     <div class="requirement">
@@ -125,8 +136,8 @@ for ($i = 0; $i < 3; $i++) {
             </div>
         </div>
     </main>
-    <div class="buy"><a href="">
-            <div id="buynow">Buy Now</div>
+    <div class="buy"><a href="create/payment.php" id="buynow">
+            Buy Now
         </a></div>
     <?php require('footer.php'); ?>
     <!--TODO rate a tutor-->

@@ -247,12 +247,18 @@ header .head a {
 
 /* dropdown mobile */
 header nav {
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   width: 60%;
-  border-radius: 10px;
   background-color: #1b0d21;
+}
+header nav.dropdown{
+  height: 100%;
+}
+header nav ul{
+  height: 100%;
+  overflow-y: scroll;
 }
 /* ul{
     z-index: 10;
@@ -821,4 +827,59 @@ input[type=number]::-webkit-outer-spin-button {
 }
 header #theme img{
   z-index: 1;
+}
+#cartdisplay{
+  display: none;
+  position: fixed;
+  top: 50px;
+  width: 80%;
+  height: 80%;
+  background-color: var(--bg);
+  overflow: scroll;
+  flex-direction: column;
+}
+.cartcontainer{
+  padding: 20px;
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.cartcontainer span{
+  border: solid black;
+  border-width: 0 0 2px;
+  width: 80%;
+}
+.cartcontainer img{
+  width: 97%;
+  margin-bottom: 20px;
+}
+.calccart{
+  position: absolute;
+  right: 20px;
+  height: 30%;
+  top: 100px;
+  width: 200px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  border-radius: 20px;
+  background-color: #0e1a2d;
+  box-shadow: 0 0 10px black;
+}
+.calccart div{
+  margin-bottom: 30px;
+}
+.calccart button{
+  width: 100%;
+  height: 30px;
+  font-weight: bolder;
+  border-radius: 20px;
+} 
+
+.removecart{
+  width: 20px;
+  height: 10%;
+  cursor: pointer;
+  /* background-color: rebeccapurple; */
+  text-align: center;
 }

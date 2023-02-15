@@ -1,0 +1,1 @@
+Pages: {HomePage}, Login, sign up, detail page, payments page, fake bank page, instructor page instructor sign up page, product upload page, update page. profile page. admin page. admin update page. admin instrutors management page, admin user management page. admin messaging page.

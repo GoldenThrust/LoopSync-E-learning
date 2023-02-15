@@ -43,19 +43,11 @@ if (isset($_POST['submit'])) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
+<html lang="en" style="background-color: white;">
+    <head>
     <?php require('meta.php') ?>
-    <meta itemprop="title" class="title">
-    <meta property="og:title" class="title">
-    <meta property="og:url" content="<?php print($currentUrl); ?>">
-    <meta itemprop="url" content="<?php print($currentUrl); ?>">
-    <meta name="twitter:domain" content="<?php print($_SERVER['SERVER_NAME']); ?>">
-    <meta name="twitter:url" content="<?php print($currentUrl); ?>">
-    <meta name="twitter:title" class="title">
-</head>
-
+    <link rel="stylesheet" href="style.css">
+    </head>
 <body>
 
     <header>
@@ -161,7 +153,6 @@ if (isset($_POST['submit'])) {
             videoName.innerText = inputvideo.name;
         };
     </script>
-    <script src="main.js"></script>
 </body>
 
 </html>

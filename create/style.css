@@ -1,5 +1,12 @@
 :root {
   --maincolor: azure;
+  --bg: #0a111f;
+  --htmlbg: #06181f;
+  --inputsub: #208d6b;
+  --inputtext: black;
+}
+html {
+  background-color: var(--htmlbg);
 }
 body {
   overflow-x: hidden;
@@ -11,7 +18,7 @@ main {
   flex-direction: column;
   margin: 20px auto;
   width: 90%;
-  color: var(--maincolor);
+  /* color: var(--maincolor); */
 }
 img {
   width: 50%;

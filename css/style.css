@@ -205,7 +205,7 @@ video:hover ~ #pp {
 .introcard a {
   color: #000;
 }
-.introcard div:nth-child(5) {
+.buynow {
   width: 30%;
   height: 50px;
   display: flex;
@@ -222,7 +222,11 @@ video:hover ~ #pp {
   animation: bgrotate 1s ease-in-out infinite;
   background-color: white;
 }
-#buynow{
+.buynow:hover {
+  width: 90%;
+  animation-play-state: paused;
+}
+#buynow {
   display: none;
   justify-content: center;
   align-items: center;
@@ -237,11 +241,10 @@ video:hover ~ #pp {
   background-color: white;
   color: black;
   height: 50px;
-
 }
-.buy{
+.buy {
   position: fixed;
-  bottom: 0;
+  top: 0;
   width: 100%;
 }
 @keyframes bgrotate {
@@ -257,10 +260,6 @@ video:hover ~ #pp {
     border-image: linear-gradient(360deg, red, blue);
     border-image-slice: 1;
   }
-}
-.introcard div:nth-child(5):hover {
-  width: 90%;
-  animation-play-state: paused;
 }
 .introcard div:nth-child(6) {
   margin: 20px auto;
@@ -329,46 +328,59 @@ li {
   padding: 20px;
   box-shadow: 0 0 5px black;
 }
-.other{
+.other {
   display: flex;
   flex-direction: row;
 }
-.other div{
+.other div {
   width: 100%;
 }
-.other div img{
+.other div img {
   box-shadow: 0 0 5px black;
   height: 150px;
 }
 @media only screen and (max-width: 1280px) {
-main.detailpage {
-  grid-template-columns: 40% 50%;
-  width: 90%;
-}
-.introcard{
-  width: 100%;
-}
+  main .project{
+    grid-template-columns: 48.5% 48.5%;
+  }
+  .introcard {
+    width: 100%;
+  }
 }
 
-@media only screen and (max-width: 986px) {
-  main.detailpage {
-    gap: 5%;
-    position: relative;
-    top: 0;
-  }
-}
 @media only screen and (max-width: 800px) {
-  main.detailpage {
+  main .project {
     grid-template-columns: 100%;
-    margin: 5px auto 250px;
     gap: 50px;
   }
-  .details{
+  .details {
     margin-top: 0;
   }
-  .introcard, .detailpage div:nth-child(2){
+  .introcard,
+  .detailpage div:nth-child(2) {
     position: relative;
     top: 0;
     width: 100%;
   }
+}
+
+.cart {
+  position: relative;
+  width: 40px;
+  height: 30px;
+  top: 10%;
+  color: white;
+  filter: drop-shadow(2px 2px 2px black) drop-shadow(2px 2px 2px black);
+  transition: all 0.1s ease-in-out;
+  cursor: grabbing;
+}
+.cart img{
+  width: 25px;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.5s ease-in-out
+}
+.component:hover>.cart img{
+  opacity: 1;
+  visibility: visible;
 }
