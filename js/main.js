@@ -78,3 +78,7 @@ cartdisplay.addEventListener("dblclick",()=>{
   cartdisplay.style.display = "none";
 })
 cartnote.style.cursor = "pointer";
+
+function createpayment(){
+  // window.location = "create/payment.php";
+}

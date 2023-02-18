@@ -23,8 +23,10 @@ if (!isset($_SESSION['email'])) {
         "location: ../login.php"
     );
 }
-$specourse = $database->read('courses', 'AuthorEmail ="' . $_SESSION['authemail'] . '" AND Name = "' . $_SESSION['productname'] . '"');
-$user = $database->read('users', "Email ='" . $_SESSION['authemail'] . "'");
+if (!isset($_SESSION['checkout'])) {
+    $specourse = $database->read('courses', 'AuthorEmail ="' . $_SESSION['authemail'] . '" AND Name = "' . $_SESSION['productname'] . '"');
+    $user = $database->read('users', "Email ='" . $_SESSION['authemail'] . "'");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,7 +39,7 @@ $user = $database->read('users', "Email ='" . $_SESSION['authemail'] . "'");
 <body>
     <main>
         <div class="fieldset">
-            <form action="../paymentcomplete.php" method="post">
+            <form action="../paymentcomplete.php" method="post" id="pay">
                 <!-- leftbar for the payment -->
                 <div class="leftbar">
                     <div class="text">
@@ -46,10 +48,8 @@ $user = $database->read('users', "Email ='" . $_SESSION['authemail'] . "'");
                     </div>
                     <div class="pin">
                         <img src="../img/mastercard.png" alt="mastercard" style="width: 30px;">
-                        <input type="number" id="pin" name="pin" placeholder="1234 - 5626 - 2637 - 2562"
-                            autocomplete="off" onblur="cardNum()"
-                            oninput="if (this.value.length > this.max) this.value = this.value.slice(0, this.max); cardNumRecieve()"
-                            max="16">
+                        <input type="number" name="pin" placeholder="1234 - 5626 - 2637 - 2562" autocomplete="off"
+                            required>
                     </div>
                     <div>
                         <div class="text">
@@ -58,9 +58,7 @@ $user = $database->read('users', "Email ='" . $_SESSION['authemail'] . "'");
                         </div>
                         <div>
                             <input type="number" name="cvv" id="cvv" placeholder="234" style="text-align: center;"
-                                autocomplete="off"
-                                oninput="if (this.value.length > this.max) this.value = this.value.slice(0, this.max);"
-                                max="4" onblur="cvv1()">
+                                autocomplete="off" required>
                         </div>
                         <div class="text">
                             <div>
@@ -71,15 +69,11 @@ $user = $database->read('users', "Email ='" . $_SESSION['authemail'] . "'");
                             </p>
                         </div>
                         <div class="align">
-                            <input type="number" name="exp1" id="exp1" placeholder="06" style="text-align: center;"
-                                autocomplete="off" value=""
-                                oninput="if (this.value.length > this.max) this.value = this.value.slice(0, this.max); pat()"
-                                max="2" onblur="exp()">
+                            <input type="number" name="exp1" placeholder="06" style="text-align: center;" max="12"
+                                required>
                             <span style="font-size: 40px;font-weight: bolder;margin: 0 20px;">/</span>
-                            <input type="number" name="exp2" id="exp2" placeholder="24" style="text-align: center;"
-                                autocomplete="off" value=""
-                                oninput="if (this.value.length > this.max) this.value = this.value.slice(0, this.max); pat()"
-                                max="2" onblur="exp()">
+                            <input type="number" name="exp2" placeholder="24" style="text-align: center;"
+                                autocomplete="off" max="40" required>
                         </div>
                         <div class="text">
                             <div>
@@ -92,7 +86,7 @@ $user = $database->read('users', "Email ='" . $_SESSION['authemail'] . "'");
                         <div>
                             <input type="password" name="pass" id="pass"
                                 style="text-align: center; letter-spacing: 20px;" placeholder="********"
-                                autocomplete="off" onblur="pass1()">
+                                autocomplete="off" required>
                         </div>
                     </div>
                     <div>
@@ -113,7 +107,7 @@ $user = $database->read('users', "Email ='" . $_SESSION['authemail'] . "'");
                     <div class="block">
                         <div id="randomName">
                             <?php
-                           echo  $data[0]['Fullname']
+                            echo $data[0]['Fullname'];
                             ?>
                         </div>
                         <div id="cardNum" style="letter-spacing: 4px;">
@@ -126,13 +120,19 @@ $user = $database->read('users', "Email ='" . $_SESSION['authemail'] . "'");
                     </div>
                     <div id="date">00/00</div>
                 </div>
+                <!-- TODO: check password -->
                 <!-- product info -->
                 <div class="proinfo">
                     <table>
                         <tr>
                             <td>Author</td>
                             <td id="author">
-                            <?php echo $user[0]['Fullname'] ?>
+                                <?php
+                                if (isset($_SESSION['checkout'])) {
+                                    echo "Checking out";
+                                } else {
+                                    echo $user[0]['Fullname'];
+                                } ?>
                             </td>
                         </tr>
                         <tr>
@@ -149,8 +149,12 @@ $user = $database->read('users', "Email ='" . $_SESSION['authemail'] . "'");
                                 Product
                             </td>
                             <td id="title">
-                            <?php
-                                echo $specourse[0]['Name']
+                                <?php
+                                if (isset($_SESSION['checkout'])) {
+                                    echo "Checking out";
+                                } else {
+                                    echo $specourse[0]['Name'];
+                                }
                                 ?>
                             </td>
                         </tr>
@@ -159,7 +163,15 @@ $user = $database->read('users', "Email ='" . $_SESSION['authemail'] . "'");
                 <div class="payprice">
                     <p>You have to Pay</p>
                     <h2>
-                        &#8358; <span id="paym">5000</span>
+                        &#8358; <span id="paym">
+                            <?php
+                            if (isset($_SESSION['checkprice'])) {
+                                echo $_SESSION['checkprice'];
+                            } else {
+                                echo $specourse[0]['Price'];
+                            }
+                            ?>
+                        </span>
                     </h2>
                 </div>
             </div>
@@ -167,133 +179,116 @@ $user = $database->read('users', "Email ='" . $_SESSION['authemail'] . "'");
         </div>
     </main>
     <script>
-        const error = document.getElementById("error");
-        // payment section
-        function cardNum() {
-            const validnumber = /^\(?(\d{4})\)?[- ]?(\d{4})[- ]?(\d{4})[- ]?(\d{4})$/;
-            const pin = document.getElementById("pin");
+        var e, e1, e2;
+        var checker = "";
+        function paym(i) {
+            pay[i].addEventListener('invalid', function (event) {
+                if (event.target.validity.valueMissing) {
+                    event.target.setCustomValidity('Input Not valid');
+                }
+            })
+            pay[i].addEventListener('change', function (event) {
+                event.target.setCustomValidity('');
+            })
+            pay[i].addEventListener("blur", () => {
+                if (pay[i].value == "") {
+                    pay[i].style.border = "1px solid red";
+                    pay[i].style.backgroundColor = "pink";
+                    error.style.visibility = "visible";
+                    error.innerText = "Field Empty";
+                } else {
+                    pay[i].style.border = "1px solid black";
+                    if (localStorage.getItem("theme") === "dark") {
+                        pay[i].style.backgroundColor = "white";
+                    } else {
+                        pay[i].style.backgroundColor = "black";
+                    }
+                    error.style.visibility = "hidden";
+                    if (i === 0) { //cardnumbers
+                        console.log()
+                        pay[i].style.border = "none";
+                    }
+                }
+                if (i === 0) { //cardnumbers
+                    if (pay[i].value.length < 16) {
+                        pay[i].style.border = "1px solid red";
+                        pay[i].style.backgroundColor = "pink";
+                        error.style.visibility = "visible";
+                        error.innerText = "Invalid card number";
+                    }
+                }
+                if (i === 1) { // cvv
+                    if (pay[i].value.length < 3) {
+                        pay[i].style.border = "1px solid red";
+                        pay[i].style.backgroundColor = "pink";
+                        error.style.visibility = "visible";
+                        error.innerText = "Invalid cvv number";
+                    }
+                }
+                if (i === 2) { // exp 1
+                    if (pay[i].value.length < 2 || pay[i].value > 12 || pay[i].value < 0) {
+                        pay[i].style.border = "1px solid red";
+                        pay[i].style.backgroundColor = "pink";
+                        error.style.visibility = "visible";
+                        error.innerText = "Invalid cvv number";
+                    }
+                }
+                if (i === 3) { // exp 2
+                    if (pay[i].value.length < 2 || pay[i].value > 50 || pay[i].value < parseInt(new Date().getFullYear().toString().slice(2, 4))) {
+                        pay[i].style.border = "1px solid red";
+                        pay[i].style.backgroundColor = "pink";
+                        error.style.visibility = "visible";
+                        error.innerText = "Invalid cvv number";
+                    }
+                }
+            })
+            pay[i].addEventListener("input", () => {
+                if (i === 0) { // cardnumber
+                    if (pay[i].value.length > 16) {
+                        pay[i].value = pay[i].value.slice(0, -1)
+                    }
+                    document.getElementById("cardNum").innerText = pay[i].value;
+                }
+                if (i === 1) { // cvv
+                    if (pay[i].value.length > 4) {
+                        pay[i].value = pay[i].value.slice(0, -1)
+                    }
+                }
+                if (i === 2) { // exp 1
+                    if (pay[i].value.length > 2) {
+                        pay[i].value = pay[i].value.slice(0, -1);
+                    }
+                    e1 = pay[i].value;
+                    e = e1 + "/";
+                    document.getElementById("date").innerText = e;
 
-            if (pin.value == "") {
-                pin.style.border = "2px solid red";
-                pin.style.backgroundColor = "pink";
-                error.style.visibility = "visible";
-                error.innerHTML = "Enter Card Number";
-            } else if (pin.value.match(validnumber) == null) {
-                pin.style.border = "2px solid red";
-                pin.style.backgroundColor = "pink";
-                error.style.visibility = "visible";
-                error.innerHTML = "Invalid Card Number";
+                }
+                if (i === 3) { // exp 2
+                    if (pay[i].value.length > 2) {
+                        pay[i].value = pay[i].value.slice(0, -1);
+                    }
+                    e2 = pay[i].value;
+                    e = e1 + "/" + e2;
+                    document.getElementById("date").innerText = e;
+
+                }
+            });
+        }
+
+        for (let i = 0; i < pay.length - 1; i++) {
+            pay[pay.length - 1].addEventListener('click', function (e) {
+                if (pay[i].style.backgroundColor === "pink"){
+                    e.preventDefault();
+                } else {
+                    return true;
+                }
+            })
+            if (localStorage.getItem("theme") === "dark") {
+                pay[i].style.backgroundColor = "white";
             } else {
-                pin.style.border = "0px solid black";
-                if (localStorage.getItem("theme") === "dark") {
-                    pin.style.backgroundColor = "white";
-                } else {
-                    pin.style.backgroundColor = "black";
-                }
-                error.style.visibility = "hidden";
-                error.innerHTML = "";
+                pay[i].style.backgroundColor = "black";
             }
-
-        }
-        function cvv1() {
-            const cvv1 = document.getElementById("cvv");
-            if (cvv1.value == "") {
-                cvv1.style.border = "2px solid red";
-                cvv1.style.backgroundColor = "pink";
-                error.visibility = "visible";
-                error.innerHTML = "Enter Card CVV";
-            }
-            else if (cvv1.value.length < 3) {
-                cvv1.style.border = "2px solid red";
-                cvv1.style.backgroundColor = "pink";
-                error.visibility = "visible";
-                error.innerHTML = "Invalid Card CVV";
-            } else {
-                cvv1.style.border = "1px solid black";
-                if (localStorage.getItem("theme") === "dark") {
-                    cvv1.style.backgroundColor = "white";
-                } else {
-                    cvv1.style.backgroundColor = "black";
-                }
-                error.visibility = "hidden";
-                error.innerHTML = "";
-            }
-        }
-        function exp() {
-            const exp1 = document.getElementById("exp1");
-            const exp2 = document.getElementById("exp2");
-            if (exp1.value == "") {
-                exp1.style.border = "2px solid red";
-                exp1.style.backgroundColor = "pink";
-                error.innerHTML = "Enter Expiry Date";
-                error.visibility = "visible";
-            }
-            else if (exp2.value == "") {
-                exp2.style.border = "2px solid red";
-                exp2.style.backgroundColor = "pink";
-                error.innerHTML = "Enter Expiry Date";
-                error.visibility = "visible";
-            }
-            else if (exp1.value > 30 || exp1.value < 0) {
-                exp1.style.border = "2px solid red";
-                exp1.style.backgroundColor = "pink";
-                exp2.style.border = "2px solid red";
-                exp2.style.backgroundColor = "pink";
-                error.innerHTML = "Invalid Expiry Date";
-                error.visibility = "visible";
-            }
-            else if (exp2.value > 50 || exp2.value < parseInt(new Date().getFullYear().toString().slice(2, 4))) {
-                exp1.style.border = "2px solid red";
-                exp1.style.backgroundColor = "pink";
-                exp2.style.border = "2px solid red";
-                exp2.style.backgroundColor = "pink";
-                error.innerHTML = "Invalid Expiry Date";
-                error.visibility = "visible";
-            }
-            else {
-                exp1.style.border = "1px solid black";
-                exp1.style.backgroundColor = "white";
-                exp2.style.border = "1px solid black";
-                if (localStorage.getItem("theme") === "dark") {
-                    exp2.style.backgroundColor = "white";
-                    exp1.style.backgroundColor = "white";
-                } else {
-                    exp2.style.backgroundColor = "black";
-                    exp1.style.backgroundColor = "black";
-                }
-                error.visibility = "hidden";
-                error.innerHTML = "";
-            }
-        }
-
-        function pass1() {
-            const pass = document.getElementById("pass");
-            if (pass.value == "") {
-                pass.style.border = "2px solid red";
-                pass.style.backgroundColor = "pink";
-                error.visibility = "visible";
-                error.innerHTML = "Enter Passwords";
-            }
-            else {
-                pass.style.border = "1px solid black";
-                pass.style.backgroundColor = "white";
-                if (localStorage.getItem("theme") === "dark") {
-                    pass.style.backgroundColor = "white";
-                } else {
-                    pass.style.backgroundColor = "black";
-                }
-                error.visibility = "hidden";
-                error.innerHTML = "";
-            }
-        }
-        function cardNumRecieve() {
-            document.getElementById("cardNum").innerHTML = document.getElementById("pin").value;
-        }
-        function pat() {
-            const e1 = document.getElementById("exp1").value;
-            const e2 = document.getElementById("exp2").value;
-            const e = e1 + "/" + e2;
-            document.getElementById("date").innerText = e
+            paym(i);
         }
     </script>
     <script src="main.js"></script>

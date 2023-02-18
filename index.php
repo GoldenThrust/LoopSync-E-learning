@@ -15,6 +15,14 @@ if (isset($_SESSION['email'])) {
         );
     }
 }
+if (isset($_POST['checkout'])) {
+    header(
+        "location: create/payment.php"
+    );
+} else {
+    unset($_SESSION['checkprice']) ;
+    unset($_SESSION['checkout']);
+}
 $course = $database->read('courses');
 // $cart = $database->read('cart', 'AddBy =' . "'$session'");
 // foreach ($cart as $key => $value) {
@@ -83,6 +91,8 @@ $course = $database->read('courses');
         const xhr = new XMLHttpRequest();
         const cartdispl = document.getElementById('cartdisplay')
         var cart = document.getElementsByClassName('cart');
+        var non;
+        const removecart = document.getElementsByClassName('removecart');
         <?php
         for ($i = count($course) - 1; $i > -1; $i--) {
             ?>
@@ -96,46 +106,43 @@ $course = $database->read('courses');
                     } else {
                         if (this.responseText !== '') {
                             alert('Add cart successfully');
-                            xhr.open('GET', 'Cart.php', true);
-                            xhr.send();
-                            xhr.onreadystatechange = function () {
-                                if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-                                    cartdispl.innerHTML = this.responseText;
-                                }
-                            };
+                            displayCart();
                         } else {
                             alert('Existing cart')
                         }
                     }
                 }
             };
-                                                    });
+                                                                            });
             <?php
         }
         ?>
-        xhr.open('GET', 'Cart.php', true);
-        xhr.send();
-        xhr.onreadystatechange = function () {
-            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-                cartdispl.innerHTML = this.responseText;
-                const removecart = document.getElementsByClassName('removecart');
-                for (let i = 0; i < removecart.length; i++) {
-                    removecart[i].addEventListener('click', () => {
-                        let url = 'prodname=' + removecart[i].parentNode.children[1].children[0].innerText + '&prodemail=' + removecart[i].parentNode.children[1].children[1].innerText;
-                        console.log(url);
-                        xhr.open('GET', 'Cart.php?' + url, true);
-                        console.log('sent')
-                        xhr.send();
-                        xhr.onreadystatechange = function () {
-                            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-                                cartdispl.innerHTML = this.responseText;
-                                console.log(this.responseText);
-                            }
-                        };
-                    })
+        function xhrRequest(request, resfunction, arg = "true") {
+            xhr.open('GET', request);
+            xhr.send();
+            xhr.onreadystatechange = function () {
+                if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                    if (arg) {
+                        cartdispl.innerHTML = this.responseText;
+                    }
+                    resfunction();
                 }
+            };
+        }
+        function displayCart() {
+            xhrRequest('Cart.php', removeCart);
+        }
+        displayCart();
+        function removeCart() {
+            // setTimeout(()=>{
+            for (let i = 0; i < removecart.length; i++) {
+                removecart[i].addEventListener('click', () => {
+                    let url = 'deleteCart.php?prodname=' + removecart[i].parentNode.children[1].children[0].innerText + '&prodemail=' + removecart[i].parentNode.children[1].children[1].innerText;
+                    xhrRequest(url, displayCart);
+                })
             }
-        };
+            // }, 2000)
+        }
     </script>
 </body>
 

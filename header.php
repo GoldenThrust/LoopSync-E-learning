@@ -18,15 +18,15 @@ if (isset($_POST['logout'])) {
       <div id="categories">Categories</div>
       <nav id="carte">
         <ul>
-          <li><a href="">Web Development</a></li>
-          <li><a href="">Mobile Development</a></li>
-          <li><a href="">Game Development</a></li>
-          <li><a href="">Graphic Design & Illustration</a></li>
-          <li><a href="">Digital Marketing</a></li>
-          <li><a href="">Social Media Marketing</a></li>
-          <li><a href="">Business Analytic & Intelligence</a></li>
-          <li><a href="">Entrepreneurship</a></li>
-          <li><a href="">Video & Animation</a></li>
+          <li><a href="comingSoon.php">Web Development</a></li>
+          <li><a href="comingSoon.php">Mobile Development</a></li>
+          <li><a href="comingSoon.php">Game Development</a></li>
+          <li><a href="comingSoon.php">Graphic Design & Illustration</a></li>
+          <li><a href="comingSoon.php">Digital Marketing</a></li>
+          <li><a href="comingSoon.php">Social Media Marketing</a></li>
+          <li><a href="comingSoon.php">Business Analytic & Intelligence</a></li>
+          <li><a href="comingSoon.php">Entrepreneurship</a></li>
+          <li><a href="comingSoon.php">Video & Animation</a></li>
         </ul>
       </nav>
       <div class="hidd"><a href="instructor.php">Instructor</a></div>
@@ -45,14 +45,14 @@ if (isset($_POST['logout'])) {
     </a>
     <span class="hid">
       <div>
-        <a href="">My Learning</a>
+        <a href="comingSoon.php">My Learning</a>
       </div>
       <div class="hidd">
-        <a href="">Contact US</a>
+        <a href="comingSoon.php">Contact US</a>
       </div>
       <div class="d border"><a href="login.php">Login</a></div>
       <div class="d border"><a href="signup.php">SignUp</a></div>
-      <div class="note"><a href=""><img src="img/wishlist.svg" alt="wishlist"></a></div>
+      <div class="note"><a href="comingSoon.php"><img src="img/wishlist.svg" alt="wishlist"></a></div>
       <div class="note" id="cart"><img src="img/cart.svg" alt="cart"></div>
       <div class="note notify"><img src="img/notification.svg" alt="notification"></div>
       <span class="notification">
@@ -67,7 +67,7 @@ if (isset($_POST['logout'])) {
           ?>
         </span>
         <span class="prodrop">
-          <a href="">Profile</a>
+          <a href="comingSoon.php">Profile</a>
           <form action="<?php htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="post">
             <button type="submit" name="logout">Log out</button>
           </form>
@@ -101,7 +101,7 @@ if (isset($_POST['logout'])) {
           </li>
           <li class="note" style="display: flex;justify-content: center; align-items: center;">
             <div>
-              <a href="" class="profile">
+              <a href="comingSoon.php" class="profile">
                 <?php
                 echo $data[0]['Fullname'][0];
 
@@ -116,20 +116,20 @@ if (isset($_POST['logout'])) {
           </li>
           <hr class="d" />
           <li class="disabled">Most Popular</li>
-          <li><a href="">Web Development</a></li>
-          <li><a href="">Mobile Development</a></li>
-          <li><a href="">Game Development</a></li>
-          <li><a href="">Graphic Design & Illustration</a></li>
-          <li><a href="">Digital Marketing</a></li>
-          <li><a href="">Social Media Marketing</a></li>
-          <li><a href="">Business Analytic & Intelligence</a></li>
-          <li><a href="">Entrepreneurship</a></li>
-          <li><a href="">Video & Animation</a></li>
+          <li><a href="comingSoon.php">Web Development</a></li>
+          <li><a href="comingSoon.php">Mobile Development</a></li>
+          <li><a href="comingSoon.php">Game Development</a></li>
+          <li><a href="comingSoon.php">Graphic Design & Illustration</a></li>
+          <li><a href="comingSoon.php">Digital Marketing</a></li>
+          <li><a href="comingSoon.php">Social Media Marketing</a></li>
+          <li><a href="comingSoon.php">Business Analytic & Intelligence</a></li>
+          <li><a href="comingSoon.php">Entrepreneurship</a></li>
+          <li><a href="comingSoon.php">Video & Animation</a></li>
           <li class="disabled">More from LoopSync</li>
-          <li><a href="">Teach in LoopSync</a></li>
-          <li><a href="">About Us</a></li>
-          <li><a href="">Contact Us</a></li>
-          <li><a href="">Blog</a></li>
+          <li><a href="comingSoon.php">Teach in LoopSync</a></li>
+          <li><a href="comingSoon.php">About Us</a></li>
+          <li><a href="comingSoon.php">Contact Us</a></li>
+          <li><a href="comingSoon.php">Blog</a></li>
           <li>
             <hr>
             <span class="note">

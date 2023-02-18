@@ -82,12 +82,12 @@
   </div>
   <hr>
   <div class="section">
-    <div><a href="">Teach on LoopSync</a></div>
-    <div><a href="">About US</a></div>
-    <div><a href="">Contact US</a></div>
-    <div><a href="">Blog</a></div>
-    <div><a href="">Help and Support</a></div>
-    <div><a href="">Report Abuse</a></div>
+    <div><a href="comingSoon.php">Teach on LoopSync</a></div>
+    <div><a href="comingSoon.php">About US</a></div>
+    <div><a href="comingSoon.php">Contact US</a></div>
+    <div><a href="comingSoon.php">Blog</a></div>
+    <div><a href="comingSoon.php">Help and Support</a></div>
+    <div><a href="comingSoon.php">Report Abuse</a></div>
   </div>
   <div class="logo">
     <span><a href="index.php"> LoopSync </a></span>

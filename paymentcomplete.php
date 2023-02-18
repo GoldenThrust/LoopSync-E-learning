@@ -1,7 +1,9 @@
 <!-- TODO: add pay todetail base with the product and the name of the person that buy the product -->
 <?php
 require('db_config.php');
-$specourse = $database->read('courses', 'AuthorEmail ="' . $_SESSION['authemail'] . '" AND Name = "' . $_SESSION['productname'] . '"');
+if (!isset($_SESSION['checkout'])) {
+    $specourse = $database->read('courses', 'AuthorEmail ="' . $_SESSION['authemail'] . '" AND Name = "' . $_SESSION['productname'] . '"');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,7 +20,8 @@ $specourse = $database->read('courses', 'AuthorEmail ="' . $_SESSION['authemail'
             left: 50%;
             transform: translate(-50%, -50%);
         }
-        div{
+
+        div {
             font-size: larger;
             font-weight: bolder;
         }
@@ -26,20 +29,19 @@ $specourse = $database->read('courses', 'AuthorEmail ="' . $_SESSION['authemail'
 </head>
 
 <body>
-    <div>Congratulation, you have success full purchase a course on loopsync </div>
+    <div>Congratulation, you have purchase a course on loopsync</div>
     <script>
-        function downloadImage() {
+        function downloadImage(dd) {
+            console.log("Downloading")
             var xhr = new XMLHttpRequest();
-            xhr.open('GET',  <?php echo "'". $specourse[0]['Trailer'] . "'"?>, true);
+            xhr.open('GET', dd, true);
             xhr.responseType = 'blob';
             xhr.onload = function () {
                 var urlCreator = window.URL || window.webkitURL;
-                var imageUrl = urlCreator.createObjectURL(this.response);
-                console.log(this.response)
-                var tag = document.createElement('a');
+                var imageUrl = urlCreator.createObjectURL(this.response);                var tag = document.createElement('a');
                 tag.href = imageUrl;
                 tag.target = '_blank';
-                tag.download = <?php echo "'". $specourse[0]['Trailer'] . "'"?>;
+                tag.download = dd;
                 document.body.appendChild(tag);
                 tag.click();
                 document.body.removeChild(tag);
@@ -49,10 +51,46 @@ $specourse = $database->read('courses', 'AuthorEmail ="' . $_SESSION['authemail'
             };
             xhr.send();
         }
-        downloadImage();
-        setTimeout(()=> {
-            window.location = 'index.php';
-        }, 5000);
+        var download = [];
+        var d = 'Done downloading';
+        <?php
+        if (isset($_SESSION['checkout'])) {
+            foreach ($_SESSION['checkout'] as $value) {
+                echo "download.push('" . $value . "');";
+            }
+            ?>
+            let promise = new Promise((resolved, reject) => {
+                for (let i = 0; i < download.length; i++) {
+                    (function (j) {
+                        setTimeout(() => {
+                            downloadImage(download[j]);
+                        }, 1000 * j);
+                        if (j >= download.length - 1) {
+                            setTimeout(() => resolved(d), 1005 * j);
+                        }
+                    })(i)
+                }
+            })
+            // const promises = new promise((resolved, reject) => {
+            //     resolved(loop());
+            // })
+            <?php
+        } else { ?>
+            let promise = new Promise((resolved, reject) => {
+                downloadImage(<?php echo "'" . $specourse[0]['Trailer'] . "'" ?>);
+                setTimeout(() => resolved(), 5000);
+            });
+        <?php } ?>
+        // promise.then(
+        //     function (resolved) { window.location = value; }
+        // )
+        //     .catch(err => console.log(err.message));
+        promise.then((done) => {
+              console.log(done)
+              setTimeout(()=>{
+                window.location = 'index.php';
+              }, 1000)
+        });
     </script>
 </body>
 
