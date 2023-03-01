@@ -2,6 +2,7 @@
 if (isset($_POST['logout'])) {
   session_unset();
   session_destroy();
+  setcookie("email", "", time() - 3600, "/");
   header(
     "location: index.php"
   );
@@ -33,7 +34,7 @@ if (isset($_POST['logout'])) {
       <div class="form">
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
           <input type="hidden" name="src" value="ks" />
-          <input type="text" name="q" placeholder="Search for anything" autocomplete="off" id="q" />
+           <input type="text" name="q" placeholder="Search for anything" autocomplete="off" id="q" />
           <button disabled tabindex="-1">
             <img src="img/search.svg" alt="search icon" />
           </button>
@@ -126,15 +127,16 @@ if (isset($_POST['logout'])) {
           <li><a href="comingSoon.php">Entrepreneurship</a></li>
           <li><a href="comingSoon.php">Video & Animation</a></li>
           <li class="disabled">More from LoopSync</li>
+          <li class="note"><a href="mobilecart.php">Cart</a></li>
           <li><a href="comingSoon.php">Teach in LoopSync</a></li>
           <li><a href="comingSoon.php">About Us</a></li>
           <li><a href="comingSoon.php">Contact Us</a></li>
           <li><a href="comingSoon.php">Blog</a></li>
           <li>
-            <hr>
-            <span class="note">
-              <form action="<?php htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="post">
-                <button type="submit" name="logout">Log out</button>
+            <hr class="note">
+            <span class="note logmobile">
+              <form action="<?php htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="post" style=" width: 100%; background-color: transparent;border: none;"  >
+                <button type="submit" name="logout" style="margin-top: 20px;background-color: blueviolet; width: 100%; cursor: pointer;height: 30px; text-align: center;border-radius: 50px; box-shadow: 2px 2px 10px black">Log out</button>
               </form>
             </span>
           </li>

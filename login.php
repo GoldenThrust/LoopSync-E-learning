@@ -9,14 +9,15 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     $var = "SELECT * FROM users WHERE email='$em'";
     $vares = $database->conn->query($var);
     if ($vares->num_rows > 0) {
-    $verify = password_verify($pw,  $vares->fetch_assoc()['Password']);
-    if ($verify) {
-        //create a session
-        $_SESSION['email'] = $em;
-        header("location: index.php");
-    } else {
-        header("location: login.php?error=Please check your password and email or <a href='signup.php'>Sign Up</a>");
-    }
+        $verify = password_verify($pw, $vares->fetch_assoc()['Password']);
+        if ($verify) {
+            //create a session
+            $_SESSION['email'] = $em;
+            setcookie("email", $_SESSION['email'], time() + ( 365 * 24 * 60 * 60), "/");
+            header("location: index.php");
+        } else {
+            header("location: login.php?error=Please check your password and email or <a href='signup.php'>Sign Up</a>");
+        }
     } else {
         header("location: login.php?error=Please check your email or <a href='signup.php'>Sign Up</a>");
     }

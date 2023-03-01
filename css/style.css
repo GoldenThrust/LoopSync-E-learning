@@ -329,17 +329,22 @@ li {
   box-shadow: 0 0 5px black;
 }
 .other {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-columns: auto auto;
 }
-.other div {
-  width: 100%;
+.other span {
+  /* border: 2px solid black; */
 }
-.other div img {
+.other span img {
   box-shadow: 0 0 5px black;
   height: 150px;
 }
 @media only screen and (max-width: 1280px) {
+  main.detailpage {
+    grid-template-columns: 40% 50%;
+    width: 90%;
+  }
   main .project{
     grid-template-columns: 48.5% 48.5%;
   }
@@ -349,8 +354,9 @@ li {
 }
 
 @media only screen and (max-width: 800px) {
-  main .project {
+  main.detailpage {
     grid-template-columns: 100%;
+    margin: 5px auto 250px;
     gap: 50px;
   }
   .details {
@@ -363,7 +369,12 @@ li {
     width: 100%;
   }
 }
-
+@media only screen and (max-width: 500px) {
+  main .project {
+    grid-template-columns: 100%;
+    gap: 50px;
+  }
+}
 .cart {
   position: relative;
   width: 40px;

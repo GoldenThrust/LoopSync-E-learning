@@ -39,4 +39,6 @@
     <meta name="twitter:domain" content="<?php print($_SERVER['SERVER_NAME']); ?>">
     <meta name="twitter:url" content="<?php print($currentUrl); ?>">
     <meta name="twitter:title" content="LoopSync - Online Courses">
+    <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
 </head>
+<!-- TODO: change color scheme for page annd favicon -->

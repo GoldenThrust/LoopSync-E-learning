@@ -12,6 +12,7 @@ if (isset($_POST['otp'])) {
     if ($otp == $code) {
         if ($database->create('users', array('fullname' => $_SESSION['fn'], 'email' => $_SESSION['e'], 'password' => password_hash( $_SESSION['pw'], PASSWORD_DEFAULT)))) {
             $_SESSION['email'] = $_SESSION['e'];
+            setcookie("email", $_SESSION['e'], time() + ( 365 * 24 * 60 * 60), "/");
             header("location: index.php");
         }
     } else {
@@ -28,7 +29,7 @@ require('meta.php');
     <div class="otp">
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <label for="otp">OTP has been send to Your email <?php $code ?></label>
-        <input type="number" name="otp" id="otp">
+        <input type="text" name="otp" id="otp">
         <input type="submit" value="Submit">
     </form>
     </div>

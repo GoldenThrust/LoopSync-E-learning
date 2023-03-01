@@ -14,13 +14,26 @@ if (isset($_SESSION['email'])) {
             "location: index.php"
         );
     }
+} else {
+    if (isset($_COOKIE['email'])) {
+        $_SESSION['email'] = $_COOKIE['email'];
+        $session = $_SESSION['email'];
+        $data = $database->read('users', "email = " . "'$session'");
+        if (!isset($data[0])) {
+            session_unset();
+            session_destroy();
+            header(
+                "location: index.php"
+            );
+        }
+    }
 }
 if (isset($_POST['checkout'])) {
     header(
         "location: create/payment.php"
     );
 } else {
-    unset($_SESSION['checkprice']) ;
+    unset($_SESSION['checkprice']);
     unset($_SESSION['checkout']);
 }
 $course = $database->read('courses');
@@ -37,17 +50,16 @@ $course = $database->read('courses');
 <body>
     <?php require('header.php'); ?>
     <main>
-
-        <div id="cartdisplay">
+        <div id="cartdisplay" style="z-index: 1;">
 
         </div>
-        <img src="img/loop.jpg" alt="banner" style="margin-bottom: 7%;">
+        <img src="img/loop.jpg" alt="banner" style="margin-bottom: 7%;" id="banner">
         <div class="project">
             <?php
             for ($i = count($course) - 1; $i > -1; $i--) {
                 echo '<div class="component"> <div class="cart"><img src="img/cart.svg"></div>';
                 echo '<form action="' . htmlspecialchars($_SERVER["PHP_SELF"]) . '" method="post">';
-                echo '<div class="link"><button name="' . $i . '" type="submit"><img src="' . $course[$i]['Thumbnail'] . '" ></img></button></div>';
+                echo '<div class="link"><button name="' . $i . '" type="submit"><img src="' . $course[$i]['Thumbnail'] . '" style="cursor: pointer;"></img></button></div>';
                 echo '</form>';
                 if (isset($_POST[$i])) {
                     echo $course[$i]['Price'];
@@ -64,85 +76,29 @@ $course = $database->read('courses');
                 echo '</div>';
             }
             ; ?>
-            <?php
-            for ($i = count($course) - 1; $i > -1; $i--) {
-                echo '<div class="component"> <div class="cart"><img src="img/cart.svg"></div>';
-                echo '<form action="' . htmlspecialchars($_SERVER["PHP_SELF"]) . '" method="post">';
-                echo '<div class="link"><button name="' . $i . '" type="submit"><img src="' . $course[$i]['Thumbnail'] . '" ></img></button></div>';
-                echo '</form>';
-                if (isset($_POST[$i])) {
-                    echo $course[$i]['Price'];
-                    ;
-                }
-                echo '<div class="coursename">' . $course[$i]['Name'] . '</div>';
-                foreach ($database->read('users', "Email ='" . $course[$i]['AuthorEmail'] . "'") as $value) {
-                    echo '<div class="name">' . $value['Fullname'] . '</div>';
-                }
-                ;
-                echo '<div>&#8358;' . $course[$i]['Price'] . '</div>';
-                echo '</div>';
-            } ?>
         </div>
     </main>
     <?php require('footer.php'); ?>
+    <?php
+    require_once('CartAjax.php');
+    ?>
     <!--TODO Send mail to me and the person that insert data -->
     <!--TODO create a search suggestion -->
     <script>
-        const xhr = new XMLHttpRequest();
-        const cartdispl = document.getElementById('cartdisplay')
-        var cart = document.getElementsByClassName('cart');
-        var non;
-        const removecart = document.getElementsByClassName('removecart');
-        <?php
-        for ($i = count($course) - 1; $i > -1; $i--) {
-            ?>
-            <?php echo "cart[" . $i . "].addEventListener('click', function () {";
-            echo "xhr.open('GET', 'addCart.php?data=" . $course[$i]['AuthorEmail'] . "&data2=" . $course[$i]['Name'] . "'); xhr.send();"; ?>
-            xhr.onreadystatechange = function () {
-                // alert('Success'+ <?php //echo $i ?>);
-                if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-                    if (this.responseText === 'log') {
-                        alert('Add cart failed. Login in or Sign Up')
-                    } else {
-                        if (this.responseText !== '') {
-                            alert('Add cart successfully');
-                            displayCart();
-                        } else {
-                            alert('Existing cart')
-                        }
-                    }
-                }
-            };
-                                                                            });
-            <?php
-        }
-        ?>
-        function xhrRequest(request, resfunction, arg = "true") {
-            xhr.open('GET', request);
-            xhr.send();
-            xhr.onreadystatechange = function () {
-                if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-                    if (arg) {
-                        cartdispl.innerHTML = this.responseText;
-                    }
-                    resfunction();
-                }
-            };
-        }
-        function displayCart() {
-            xhrRequest('Cart.php', removeCart);
-        }
-        displayCart();
-        function removeCart() {
-            // setTimeout(()=>{
-            for (let i = 0; i < removecart.length; i++) {
-                removecart[i].addEventListener('click', () => {
-                    let url = 'deleteCart.php?prodname=' + removecart[i].parentNode.children[1].children[0].innerText + '&prodemail=' + removecart[i].parentNode.children[1].children[1].innerText;
-                    xhrRequest(url, displayCart);
-                })
+        const image = ["img/loop.jpg", "img/loop2.jpg", "img/loop3.jpg"];
+        let bannersrc, banner;
+        setInterval(() => {
+            banner = document.getElementById('banner');
+            bannersrc = banner.getAttribute("src");
+            if (bannersrc === image[0]) {
+                banner.setAttribute("src", image[1]);
+            } else if (bannersrc === image[1]) {
+                banner.setAttribute("src", image[2]);
+            } else {
+                banner.setAttribute("src", image[0]);
             }
-            // }, 2000)
-        }
+        }, 5000);
+        console.log(Math.random().toString(36).slice(2))
     </script>
 </body>
 

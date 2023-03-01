@@ -14,6 +14,20 @@ if (isset($_SESSION['email'])) {
             "location: index.php"
         );
     }
+} else {
+    if (isset($_COOKIE['email'])) 
+    {
+        $_SESSION['email'] = $_COOKIE['email'];
+        $session = $_SESSION['email'];
+        $data = $database->read('users', "email = " . "'$session'");
+        if (!isset($data[0])) {
+            session_unset();
+            session_destroy();
+            header(
+                "location: index.php"
+            );
+        }
+    }
 }
 $specourse = $database->read('courses', 'AuthorEmail ="' . $_SESSION['authemail'] . '" AND Name = "' . $_SESSION['productname'] . '"');
 $user = $database->read('users', "Email ='" . $_SESSION['authemail'] . "'");
@@ -43,7 +57,7 @@ for ($i = 0; $i < 3; $i++) {
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" onscroll="scroll()">
 
 <head>
     <?php require('meta.php') ?>
@@ -60,8 +74,12 @@ for ($i = 0; $i < 3; $i++) {
 <body>
     <?php require('header.php'); ?>
     <main class="detailpage">
+        <div id="cartdisplay" style="z-index: 1;">
+
+        </div>
         <div class="introcard">
-            <video src="<?php echo $specourse[0]['Trailer'] ?>" id="trailer"></video>
+            <video src="<?php echo $specourse[0]['Trailer'] ?>" poster="<?php echo $specourse[0]['Thumbnail'] ?>"
+                id="trailer"></video>
             <div id="pp"><img src="img/playbutton.svg" alt=""></div>
             <div class="prodname"><span>
                     <?php echo $user[0]['Fullname'] ?>
@@ -114,7 +132,6 @@ for ($i = 0; $i < 3; $i++) {
                         <div class="other">
                             <?php
                             for ($i = 0; $i < count($rand); $i++) {
-                                echo '<div class="component">';
                                 echo '<form action="' . htmlspecialchars($_SERVER["PHP_SELF"]) . '" method="post">';
                                 echo '<span class="link"><button name="' . $i . '" type="submit"><img src="' . $course[$i]['Thumbnail'] . '" ></img></button></span>';
                                 echo '</form>';
@@ -125,10 +142,9 @@ for ($i = 0; $i < 3; $i++) {
                                     echo '<script>window.location = "productdetail.php";</script>';
                                 }
                                 foreach ($database->read('users', "Email ='" . $course[$i]['AuthorEmail'] . "'") as $value) {
-                                    echo '<span class="name">' . $value['Fullname'] . '</span>';
+                                    echo '<span class="name" style="font-size: 20px; font-weight: bolder">' . $value['Fullname'] . '</span>';
                                 }
                                 ;
-                                echo '<div/>';
                             } ?>
                         </div>
                     </div>
@@ -161,11 +177,14 @@ for ($i = 0; $i < 3; $i++) {
         share.onclick = () => {
             navigator.clipboard.writeText(window.location.href);
         }
+        const buy1 = document.querySelector(".buynow");
+        const buy = document.getElementById("buynow");
+        var detailstop = buy.getBoundingClientRect();
         function scroll() {
             const screensize = window.matchMedia("(Max-width: 800px)");
             const buy = document.getElementById("buynow");
-            var detailstop = document.getElementById("details").getBoundingClientRect().top;
-            if (detailstop < 300) {
+            var detailstop = buy1.getBoundingClientRect().top;
+            if (detailstop < -50) {
                 if (screensize.matches) {
                     buy.style.display = "flex";
                 }
@@ -184,8 +203,18 @@ for ($i = 0; $i < 3; $i++) {
                 buy.style.display = "none";
             }
         }
-        window.addEventListener("scroll", scroll);
+        const main = document.querySelector("main");
+        function getScroll(event) {
+
+            console.log(top);
+        }
+        document.body.addEventListener("mousewheel", scroll);
+        document.body.addEventListener("wheel", scroll);
+        document.body.addEventListener("scroll", scroll);
     </script>
+    <?php
+    require_once('CartAjax.php');
+    ?>
 </body>
 
 </html>

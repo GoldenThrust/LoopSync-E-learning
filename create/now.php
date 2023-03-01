@@ -110,15 +110,15 @@ if (isset($_POST['submit'])) {
             </div>
             <div class="input">
                 <label for="subdesc">Sub-Description</label>
-                <input type="text" name="subdesc" id="subdesc" required minlength="10" maxlength="80">
+                <input type="text" name="subdesc" id="subdesc" required minlength="10" maxlength="200">
             </div>
             <div class="input">
                 <label for="requi">Requirement</label>
-                <textarea name="requi" id="requi" cols="30" rows="10" required minlength="30" maxlength="500"></textarea>
+                <textarea name="requi" id="requi" cols="30" rows="10" required minlength="30" maxlength="1000"></textarea>
             </div>
             <div class="input">
                 <label for="desc">Description</label>
-                <textarea name="desc" id="desc" cols="30" rows="10" required minlength="50" maxlength="2000"></textarea>
+                <textarea name="desc" id="desc" cols="30" rows="10" required minlength="50" maxlength="20000"></textarea>
             </div>
             <div class="footer">
                 <span><button type="button" id="previous" onclick="window.location = '../index.php'">Exist</button></span>

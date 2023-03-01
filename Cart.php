@@ -8,12 +8,12 @@ $cart = $database->read('cart', 'AddBy =' . "'$session'");
     }
     $val = 0;
     if(isset($cartcourse)){
-    for ($i = 0; $i < count($cartcourse); $i++) {
+    for ($i = 0; $i <    count($cartcourse); $i++) {
         foreach ($cartcourse[$i] as $key => $value) {
             echo '<div class="cartcontainer">';
             echo '<span><img src="' . $value['Thumbnail'] . '"></span>';
             echo '<span>';
-            echo '<div style="font-weight: bolder;margin-bottom:10px;font-size: 20px;">' . $value['Name'] . '</div>';
+            echo '<div class="cartname">' . $value['Name'] . '</div>';
             echo '<div style="display: none;">'. $value['AuthorEmail'] .'</div>';
             foreach ($database->read('users', "Email ='" . $value['AuthorEmail'] . "'") as $user) {
                 echo '<div class="name"> By ' . $user['Fullname'] . '</div>';

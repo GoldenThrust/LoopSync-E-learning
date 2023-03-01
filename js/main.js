@@ -69,16 +69,6 @@ formmove(formlabel, forminput, screenvar); //form function triger
 const d = document.getElementsByClassName("d"); //login and signin button node
 const note = document.getElementsByClassName("note"); //add to cart and other node
 
-const cartdisplay = document.getElementById('cartdisplay');
-const cartnote = document.getElementById('cart');
-cartnote.addEventListener("click", () => {
-  cartdisplay.style.display = "grid";
-})
-cartdisplay.addEventListener("dblclick",()=>{
-  cartdisplay.style.display = "none";
-})
-cartnote.style.cursor = "pointer";
-
 function createpayment(){
   // window.location = "create/payment.php";
 }
